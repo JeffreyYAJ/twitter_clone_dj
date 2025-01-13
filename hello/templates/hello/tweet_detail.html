@@ -4,6 +4,7 @@
 		<title>Détail du Tweet</title>
 	</head>
 	<body>
+		{% include 'partials/sidebar.html'%}
 		<p><a href="{% url 'home' %}">Retour à l'accueil</a></p>
 		<h2>{{ tweet.user.username }} : {{ tweet.content }}</h2>
 		{% if tweet.image %}

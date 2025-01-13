@@ -2,28 +2,45 @@
 <html>
 	<head>
 		<title>Connexion</title>
+		{% load static %}
+		<link rel="stylesheet" href="{% static 'css/signin.css'%}" />
 	</head>
-	<body>
-		<h2>Connexion</h2>
-		<form method="post">
-			{% csrf_token %} {% comment %} default form by django {% endcomment %}
-			{%comment %} {{ form.as_p }} {% endcomment %}
 
-			<label for="id_username">Nom d'utilisateur: </label>
-			{{form.username}}<br /><br />
-			<label for="id_password">Mot de passe: </label>
-			{{form.password}}<br /><br />
-			<button type="submit">Se connecter</button>
-			{% if form.errors %}
-			<ul>
-				{% for field in form %} {% for error in field.errors %}
-				<li>{{ error }}</li>
-				{% endfor %} {% endfor %} {% for error in form.non_field_errors %}
-				<li>{{ error }}</li>
-				{% endfor %}
-			</ul>
-			{% endif %}
-		</form>
-		<p><a href="{% url 'home'%}">Retour a la page d'accueil</a></p>
-	</body>
+	<body class="text-center">
+		
+		<header>
+			<img
+				class="logo"
+				src="{% static 'images/twitter-logo.png' %}"
+				alt="Logo"
+				width="72"
+				height="72"
+			/>
+		</header>
+		<h2 class="join" >Rejoignez Twitter</h2>
+		<div class="container">
+			<form method="post">
+				{% csrf_token %} {% comment %} default form by django {% endcomment %}
+				{%comment %} {{ form.as_p }} {% endcomment %}
+				<div class="input">
+					<label class="user_name" for="id_username">Nom d'utilisateur </label></br>
+					{{form.username}}
+				</div>
+				<div class="input">
+					<label class="password" for="id_password">Mot de passe </label></br>
+					{{form.password}}
+				</div><br /><br />
+				<button class="button" type="submit">Se connecter</button>
+				{% if form.errors %}
+				<ul>
+					{% for field in form %} {% for error in field.errors %}
+					<li>{{ error }}</li>
+					{% endfor %} {% endfor %} {% for error in form.non_field_errors %}
+					<li>{{ error }}</li>
+					{% endfor %}
+				</ul>
+				{% endif %}
+			</form>
+		</div>
+		</body>
 </html>

@@ -37,6 +37,7 @@ def log_message(request):
 
 @login_required
 def home(request):
+    form = TweetForm(request.POST, request.FILES)
     tweets = Tweet.objects.all().order_by("-created_at")
     return render(request, "hello/home.html", {"tweets":tweets})
 

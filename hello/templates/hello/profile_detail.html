@@ -5,6 +5,7 @@
 		<title>Profil de {{ profile_user.username }}</title>
 	</head>
 	<body>
+		{% include 'partials/sidebar.html'%}
 		<h2>Profil de {{ profile_user.username }}</h2>
 		{% if user.is_authenticated and user != profile_user %} {% if is_following%}
 		<form action="{% url 'unfollow_user' profile_user.id %}" method="post">

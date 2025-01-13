@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Profil de {{ user.username }}</title>
+		<title>Profil - {{ user.username }}</title>
 	</head>
 	<body>
-		<h2>Profil de {{ user.username }}</h2>
+		{% include 'partials/sidebar.html'%}
+		<h2>{{ user.username }} (Moi)</h2>
 		<a href="{% url 'logout' %}">Déconnexion</a>
 		<h3>Mes Tweets</h3>
 		<ul>
