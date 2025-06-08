@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Nouveau Tweet</title>
+	</head>
+	<body>
+		<h2>Nouveau Tweet</h2>
+		<form method="post" enctype="multipart/form-data">
+			{% csrf_token %} {{ form.as_p }}
+			<button type="submit">Tweeter</button>
+		</form>
+		<p><a href="{% url 'home' %}">Retour à l'accueil</a></p>
+	</body>
+</html>

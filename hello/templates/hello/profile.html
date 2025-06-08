@@ -1,19 +1,16 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Home - Twitter Clone</title>
+		<title>Profil de {{ user.username }}</title>
 	</head>
 	<body>
-		{%if user.is_authenticated %}
-		<p>Bienvenue, {{user.username}}!</p>
-		{% else %}
-		<p><a href="{%url 'login'%}">Connexion</a></p>
-		{%endif%}
-		<h1>All Tweets</h1>
+		<h2>Profil de {{ user.username }}</h2>
+		<a href="{% url 'logout' %}">Déconnexion</a>
+		<h3>Mes Tweets</h3>
 		<ul>
 			{% for tweet in tweets %}
 			<li>
-				<strong>{{ tweet.user.username }}</strong>: {{ tweet.content }}<br />
+				{{ tweet.content }}<br />
 				<small>{{ tweet.created_at }}</small>
 				{% if tweet.image %}
 				<img
@@ -24,8 +21,9 @@
 				{% endif %}
 			</li>
 			{% empty %}
-			<li>No tweets yet.</li>
+			<li>Vous n'avez pas encore tweeté.</li>
 			{% endfor %}
 		</ul>
+		<p><a href="{% url 'home' %}">Retour à l'accueil</a></p>
 	</body>
 </html>
