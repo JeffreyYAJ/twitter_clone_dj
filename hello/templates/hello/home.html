@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Home - Twitter Clone</title>
+	</head>
+	<body>
+		{%if user.is_authenticated %}
+		<p>Bienvenue, {{user.username}}!</p>
+		{% else %}
+		<p><a href="{%url 'login'%}">Connexion</a></p>
+		{%endif%}
+		<h1>All Tweets</h1>
+		<ul>
+			{% for tweet in tweets %}
+			<li>
+				<strong>{{ tweet.user.username }}</strong>: {{ tweet.content }}<br />
+				<small>{{ tweet.created_at }}</small>
+			</li>
+			{% empty %}
+			<li>No tweets yet.</li>
+			{% endfor %}
+		</ul>
+	</body>
+</html>
