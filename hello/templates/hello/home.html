@@ -13,7 +13,9 @@
 		<ul>
 			{% for tweet in tweets %}
 			<li>
-				<strong>{{ tweet.user.username }}</strong>: {{ tweet.content }}<br />
+				<a href="{% url 'profile_detail' tweet.user.id %}"
+					>{{ tweet.user.username }}</a
+				>: {{ tweet.content }}<br />
 				<small>{{ tweet.created_at }}</small>
 				{% if tweet.image %}
 				<img
@@ -22,6 +24,7 @@
 					style="max-width: 200px"
 				/><br />
 				{% endif %}
+				<a href="{% url 'tweet_detail' tweet.id %}">Voir</a>
 			</li>
 			{% empty %}
 			<li>No tweets yet.</li>

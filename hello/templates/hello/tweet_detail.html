@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Détail du Tweet</title>
+	</head>
+	<body>
+		<p><a href="{% url 'home' %}">Retour à l'accueil</a></p>
+		<h2>{{ tweet.user.username }} : {{ tweet.content }}</h2>
+		{% if tweet.image %}
+		<img src="{{ tweet.image.url }}" style="max-width: 200px" /><br />
+		{% endif %}
+		<p>Posté le {{ tweet.created_at }}</p>
+		<form action="{% url 'like_tweet' tweet.id %}" method="post">
+			{% csrf_token %}
+			<button type="submit">
+				{% if has_liked %} ❤️ Unlike {% else %} 🤍 Like {% endif %}
+				({{tweet.likes.count }})
+			</button>
+		</form>
+		<h3>Commentaires</h3>
+		<ul>
+			{% for comment in comments %}
+			<li>
+				<strong>{{ comment.user.username }}</strong> : {{ comment.content }}
+				<small>{{ comment.created_at }}</small>
+			</li>
+			{% empty %}
+			<li>Aucun commentaire.</li>
+			{% endfor %}
+		</ul>
+		<h4>Ajouter un commentaire</h4>
+		<form method="post">
+			{% csrf_token %} {{ form.as_p }}
+			<button type="submit">Commenter</button>
+		</form>
+	</body>
+</html>
