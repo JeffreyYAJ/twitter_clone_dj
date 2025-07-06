@@ -1,0 +1,14 @@
+{% include 'partials/sidebar.html' %}
+<h2>Boîte de réception</h2>
+<ul>
+	{% for message in messages %}
+	<li>
+		<strong>De :</strong> {{ message.sender.username }}<br />
+		{{ message.content }}<br />
+		<small>{{ message.timestamp }}</small>
+	</li>
+	{% empty %}
+	<li>Aucun message.</li>
+	{% endfor %}
+</ul>
+<a href="{% url 'send_message' %}">Nouveau message</a>

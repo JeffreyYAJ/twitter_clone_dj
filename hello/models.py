@@ -49,3 +49,14 @@ class Follow(models.Model):
 
     def __str__(self):
         return f"{self.follower.username} follows {self.following.username}"
+    
+    
+class Message(models.Model):
+    sender = models.ForeignKey(User, related_name='sent_messages', on_delete=models.CASCADE)
+    recipient = models.ForeignKey(User, related_name='received_messages', on_delete=models.CASCADE)
+    content = models.TextField(max_length=1000)
+    timestamp = models.DateTimeField(auto_now_add=True)
+    is_read = models.BooleanField(default=False)
+
+    class Meta:
+        ordering = ['-timestamp']

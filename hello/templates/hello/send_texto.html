@@ -1,0 +1,6 @@
+{% include 'partials/sidebar.html' %}
+<h2>Nouveau message</h2>
+<form method="post">
+	{% csrf_token %} {{ form.as_p }}
+	<button type="submit">Envoyer</button>
+</form>

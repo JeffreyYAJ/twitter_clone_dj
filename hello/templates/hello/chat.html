@@ -1,0 +1,27 @@
+<head>
+	{% load static%}
+	<link rel="stylesheet" href="{%static 'css/chat.css'%}" />
+</head>
+
+{% include 'partials/sidebar.html' %}
+<div class="conversation-container">
+	<div class="conversation-header">
+		<strong>{{ contact.username }}</strong>
+	</div>
+	<div class="conversation-messages">
+		{% for message in messages %}
+		<div
+			class="message {% if message.sender == user %}sent{% else %}received{% endif %}"
+		>
+			<span>{{ message.content }}</span>
+			<div class="timestamp">{{ message.timestamp|date:"H:i" }}</div>
+		</div>
+		{% empty %}
+		<div class="no-messages">Aucun message pour l’instant.</div>
+		{% endfor %}
+	</div>
+	<form method="post" class="conversation-form">
+		{% csrf_token %} {{ form.content }}
+		<button type="submit">Envoyer</button>
+	</form>
+</div>

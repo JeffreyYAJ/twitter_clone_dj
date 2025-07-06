@@ -9,6 +9,8 @@ from .models import Tweet, Like, Follow
 from hello.forms import SignUpForm, TweetForm, CommentForm, LikeForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from .models import Message
+from .forms import MessageForm
 
 class HomeListView(ListView):
     """Renders the home page, with a list of all messages."""
@@ -37,9 +39,17 @@ def log_message(request):
 
 @login_required
 def home(request):
-    form = TweetForm(request.POST, request.FILES)
+    if request.method == "POST":
+        form = TweetForm(request.POST, request.FILES)
+        if form.is_valid():
+            tweet = form.save(commit=False)
+            tweet.user = request.user
+            tweet.save()
+            return redirect('home')
+    else:
+        form = TweetForm()
     tweets = Tweet.objects.all().order_by("-created_at")
-    return render(request, "hello/home.html", {"tweets":tweets})
+    return render(request, "hello/home.html", {"tweets": tweets, "form": form})
 
 @login_required
 def profile(request):
@@ -137,3 +147,50 @@ def following_list(request):
     following_users = [follow.following for follow in following]
     tweets = Tweet.objects.filter(user__in=following_users).order_by("-created_at")
     return render(request, "hello/following_list.html", {"tweets": tweets})
+
+@login_required
+def inbox(request):
+    messages = Message.objects.filter(recipient= request.user)
+    return render( request, "hello/inbox.html", {'messages':messages})
+
+@login_required
+def send_texto(request):
+    if request.method == "POST":
+        form = MessageForm(request.POST)
+        if form.is_valid():
+            message = form.save(commit = False)
+            message.sender = request.user
+            message.save()
+            return redirect('inbox')
+        
+    else:
+        form = MessageForm()
+    return render(request, "hello/send_texto.html", {"form":form})
+
+from .models import Message
+from .forms import MessageForm
+from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import get_object_or_404, render, redirect
+
+@login_required
+def conversation(request, user_id):
+    contact = get_object_or_404(User, id=user_id)
+    messages = Message.objects.filter(
+        (models.Q(sender=request.user, recipient=contact) | models.Q(sender=contact, recipient=request.user))
+    ).order_by('timestamp')
+    if request.method == 'POST':
+        form = MessageForm(request.POST)
+        if form.is_valid():
+            msg = form.save(commit=False)
+            msg.sender = request.user
+            msg.recipient = contact
+            msg.save()
+            return redirect('conversation', user_id=contact.id)
+    else:
+        form = MessageForm()
+    return render(request, 'hello/conversation.html', {
+        'contact': contact,
+        'messages': messages,
+        'form': form,
+    })

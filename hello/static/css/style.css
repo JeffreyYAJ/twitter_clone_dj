@@ -64,3 +64,50 @@ p a {
 p a:hover {
 	background-color: #0d95e8;
 }
+
+/* Twitter-style tweet box */
+.tweet-form-container {
+	background: #fff;
+	border: 1px solid #e1e8ed;
+	border-radius: 16px;
+	padding: 20px;
+	margin-bottom: 24px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
+	max-width: 600px;
+}
+
+.tweet-form-container h2 {
+	font-size: 1.2em;
+	color: #1da1f2;
+	margin-bottom: 10px;
+}
+
+.tweet-form textarea,
+.tweet-form input[type="text"] {
+	width: 100%;
+	border: none;
+	border-bottom: 1px solid #e1e8ed;
+	font-size: 1.1em;
+	padding: 10px 0;
+	margin-bottom: 12px;
+	resize: none;
+	background: transparent;
+	outline: none;
+}
+
+.tweet-form button[type="submit"] {
+	background: #1da1f2;
+	color: #fff;
+	border: none;
+	border-radius: 999px;
+	padding: 8px 24px;
+	font-weight: bold;
+	font-size: 1em;
+	float: right;
+	cursor: pointer;
+	transition: background 0.2s;
+}
+
+.tweet-form button[type="submit"]:hover {
+	background: #1991da;
+}

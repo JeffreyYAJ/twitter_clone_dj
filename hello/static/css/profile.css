@@ -1,0 +1,53 @@
+/* Profil utilisateur façon Twitter */
+.profile-header {
+	display: flex;
+	align-items: center;
+	gap: 20px;
+	background: #fff;
+	border-bottom: 1px solid #e1e8ed;
+	padding: 32px 24px 16px 24px;
+	margin-bottom: 24px;
+	border-radius: 0 0 16px 16px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
+}
+.profile-avatar {
+	width: 80px;
+	height: 80px;
+	border-radius: 50%;
+	background: #e1e8ed;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 2.5em;
+	color: #1da1f2;
+}
+.profile-username {
+	font-size: 2em;
+	font-weight: bold;
+	color: #14171a;
+	margin-bottom: 4px;
+}
+.profile-actions {
+	margin-left: auto;
+}
+.profile-tweets-list {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	margin-left: 60px;
+}
+.profile-tweets-list li {
+	background: #fff;
+	border: 1px solid #e1e8ed;
+	border-radius: 12px;
+	margin-bottom: 16px;
+	padding: 16px;
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+}
+.profile-tweets-list small {
+	color: #657786;
+}
+
+.mes-tweets {
+	margin-left: 40px;
+}

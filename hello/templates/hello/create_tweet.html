@@ -1,8 +1,13 @@
-<h2>Nouveau Tweet</h2>
-<form method="post" enctype="multipart/form-data">
-	{% csrf_token %} {{ form.as_p }}
-	<button type="submit">Tweeter</button>
-</form>
-{% comment %}
-<p><a href="{% url 'home' %}">Retour à l'accueil</a></p>
-{% endcomment %}
+<div class="tweet-form-container">
+	<h2>Nouveau Tweet</h2>
+	<form method="post" enctype="multipart/form-data" class="tweet-form">
+		{% csrf_token %}
+		<div class="form-group">
+			{{ form.content.label_tag }} {{ form.content }} {%if form.content.errors%}
+			<div class="error">{{ form.content.errors }}</div>
+			{% endif %}
+		</div>
+		{# Ajoute d'autres champs ici si besoin #}
+		<button type="submit">Tweeter</button>
+	</form>
+</div>

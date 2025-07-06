@@ -1,35 +1,53 @@
-<!-- filepath: /home/yaj/Desktop/twitter/djtwitter_scratch/django-template-1/hello/templates/hello/profile_detail.html -->
 <!DOCTYPE html>
 <html>
 	<head>
 		<title>Profil de {{ profile_user.username }}</title>
+		{% load static %}
+		<link rel="stylesheet" href="{%static 'css/profile.css'%}" />
 	</head>
 	<body>
-		{% include 'partials/sidebar.html'%}
-		<h2>Profil de {{ profile_user.username }}</h2>
-		{% if user.is_authenticated and user != profile_user %} {% if is_following%}
-		<form action="{% url 'unfollow_user' profile_user.id %}" method="post">
-			{% csrf_token %}
-			<button type="submit">Se désabonner</button>
-		</form>
-		{% else %}
-		<form action="{% url 'follow_user' profile_user.id %}" method="post">
-			{% csrf_token %}
-			<button type="submit">Suivre</button>
-		</form>
-		{% endif %} {% endif %}
-		<h3>Tweets</h3>
-		<ul>
+		{% include 'partials/sidebar.html' %}
+		<div class="profile-header">
+			<div class="profile-avatar">
+				<i class="bi bi-person"></i>
+			</div>
+			<div>
+				<div class="profile-username">{{ profile_user.username }}</div>
+				<div>@{{ profile_user.username }}</div>
+			</div>
+			<div class="profile-actions">
+				{% if user.is_authenticated and user != profile_user %}
+					{% if is_following %}
+						<form action="{% url 'unfollow_user' profile_user.id %}" method="post">
+							{% csrf_token %}
+							<button type="submit" class="btn btn-outline-danger btn-sm">
+								Se désabonner
+							</button>
+						</form>
+					{% else %}
+						<form action="{% url 'follow_user' profile_user.id %}" method="post">
+							{% csrf_token %}
+							<button type="submit" class="btn btn-outline-primary btn-sm">
+								Suivre
+							</button>
+						</form>
+					{% endif %}
+				{% endif %}
+			</div>
+		</div>
+		<h3 class="mes-tweets">Tweets</h3>
+		<ul class="profile-tweets-list">
 			{% for tweet in tweets %}
 			<li>
 				{{ tweet.content }}<br />
 				<small>{{ tweet.created_at }}</small>
 				{% if tweet.image %}
+				<br />
 				<img
 					src="{{ tweet.image.url }}"
 					alt="Image du tweet"
-					style="max-width: 200px"
-				/><br />
+					style="max-width: 200px; border-radius: 12px"
+				/>
 				{% endif %}
 			</li>
 			{% empty %}
@@ -39,3 +57,4 @@
 		<p><a href="{% url 'home' %}">Retour à l'accueil</a></p>
 	</body>
 </html>
+

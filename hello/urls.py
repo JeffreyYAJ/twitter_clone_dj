@@ -21,6 +21,8 @@ urlpatterns = [
     path('user/<int:user_id>/follow/', views.follow_user, name='follow_user'),
     path('user/<int:user_id>/unfollow/', views.unfollow_user, name='unfollow_user'),
     path('user/<int:user_id>/', views.profile_detail, name='profile_detail'),
-
+    path('messages/', views.inbox, name='inbox'),
+    path('messages/send/', views.send_texto, name='send_message'), 
+    path('messages/<int:user_id>/', views.conversation, name='conversation'),
 ]
 
